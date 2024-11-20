@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/UlsanUniversityDT.unity
+    guid: e63d86085c81e1e4fa4a64466c7e4c2a
   m_configObjects: {}
