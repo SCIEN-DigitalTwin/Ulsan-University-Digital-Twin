@@ -22,14 +22,30 @@ public class SlecteData : MonoBehaviour
 
     private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
+    // 데이터 누적을 위한 리스트
+    public List<Dictionary<string, object>> prc_hist_tb_list = new List<Dictionary<string, object>>();
+    // 데이터 누적을 위한 리스트
+    public List<Dictionary<string, object>> prc_alr_tb_list = new List<Dictionary<string, object>>();
+
     //불러온 데이터 딕셔너리
     public Dictionary<string, object> prc_hist_tb = new Dictionary<string, object>();
+    public Dictionary<string, object> prc_alr_tb = new Dictionary<string, object>();
     public Dictionary<string, object> strg_fns_in_dic = new Dictionary<string, object>();
     public Dictionary<string, object> strg_fns_out_dic = new Dictionary<string, object>();
     public Dictionary<string, object> strg_raw_in_dic = new Dictionary<string, object>();
     public Dictionary<string, object> strg_raw_out_dic = new Dictionary<string, object>();
-    
 
+    public Dictionary<string, object> prc_hist = new Dictionary<string, object>();
+    public Dictionary<string, object> prc_alr = new Dictionary<string, object>();
+
+    //private DateTime hisLastFetchTime = DateTime.Now; // 마지막 데이터 가져오기 시간
+    //private DateTime alrLastFetchTime = DateTime.Now; // 마지막 데이터 가져오기 시간
+    private DateTime hisLastFetchTime = DateTime.ParseExact("2024-09-20 13:28:04.497", "yyyy-MM-dd HH:mm:ss.fff", null);
+
+    private DateTime alrLastFetchTime = DateTime.ParseExact("2024-09-20 13:28:04.497", "yyyy-MM-dd HH:mm:ss.fff", null);
+
+
+    // 마지막 데이터 가져오기 시간
     public void UpdateDatabaseInfo(string newIp, string newPort, string newDb, string newUserID, string newUserPW, bool status, MySqlSslMode sslMo, string chars)
     {
         ip = newIp;
@@ -67,10 +83,13 @@ public class SlecteData : MonoBehaviour
     private void Awake()
     {
         prc_hist_tb.Clear();
+        prc_alr_tb.Clear();
         strg_fns_in_dic.Clear();
         strg_fns_out_dic.Clear();
         strg_raw_in_dic.Clear();
         strg_raw_out_dic.Clear();
+        prc_alr_tb_list.Clear();
+        prc_hist_tb_list.Clear();
     }
     private async void StartFetchingData()
     {
@@ -93,6 +112,7 @@ public class SlecteData : MonoBehaviour
         {
             try
             {
+
                 await DBConnection();
             }
             catch (Exception ex)
@@ -101,6 +121,7 @@ public class SlecteData : MonoBehaviour
             }
 
             await Task.Delay(1000); // 1초 대기
+
         }
 
         
@@ -113,7 +134,11 @@ public class SlecteData : MonoBehaviour
             {
                 await connection.OpenAsync();  // 비동기적으로 DB 연결 시도
 
+                prc_alr_tb_list.Clear();
+                prc_hist_tb_list.Clear();
+
                 await Prc_Hist_Tb_Data(connection);
+                await Prc_Alr_Tb_Data(connection);
                 await Strg_Fns_In_Data(connection);
                 await Strg_Fns_Out_Data(connection);
                 await Strg_Raw_In_Data(connection);
@@ -129,9 +154,65 @@ public class SlecteData : MonoBehaviour
     }
     private async Task Prc_Hist_Tb_Data(MySqlConnection connection)
     {
-        string query = "SELECT * FROM ulsan_db_v1.prc_hist_tb ORDER BY REG_DT DESC LIMIT 1";
+        string query = "SELECT * FROM ulsan_db_v1.prc_hist_tb WHERE REG_DT > @LastFetchTime ORDER BY REG_DT ASC";
 
         using (var cmd = new MySqlCommand(query, connection))
+        {
+            cmd.Parameters.AddWithValue("@LastFetchTime", hisLastFetchTime.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        try
+                        {
+                            // 딕셔너리에 데이터 저장
+                            var rowData = new Dictionary<string, object>
+                            {
+                                ["PRD_SRL_NO"] = reader.GetString("PRD_SRL_NO"),
+                                ["PRD_PLN_NO"] = reader.GetString("PRD_PLN_NO"),
+                                ["CMP_CD"] = reader.GetString("CMP_CD"),
+                                ["PRD_CD"] = reader.GetString("PRD_CD"),
+                                ["CMP_LINE_ID"] = reader.GetString("CMP_LINE_ID"),
+                                ["CMP_EQ_ID"] = reader.GetString("CMP_EQ_ID"),
+                                ["PRD_TYP_NO"] = reader.GetString("PRD_TYP_NO"),
+                                ["PRD_LOT"] = reader.GetString("PRD_LOT"),
+                                ["RECE_CD"] = reader.GetString("RECE_CD"),
+                                ["PRD_WRK_CD"] = reader.GetString("PRD_WRK_CD"),
+                                ["PRD_CYC_TM"] = reader.GetString("PRD_CYC_TM"),
+                                ["MN_CYC_TM"] = reader.GetString("MN_CYC_TM"),
+                                ["RBT_CYC_TM"] = reader.GetString("RBT_CYC_TM"),
+                                ["REG_DT"] = reader.GetString("REG_DT")
+                            };
+
+                            // 리스트에 데이터 추가
+                            prc_hist_tb_list.Add(rowData);
+
+                           
+
+
+                            // 마지막 REG_DT 업데이트
+                            hisLastFetchTime = reader.GetDateTime("REG_DT");
+                            
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError($"데이터 읽기 오류: {ex.Message}");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("새로운 데이터가 없습니다.");
+                }
+            }
+        }
+
+        string query2 = "SELECT * FROM ulsan_db_v1.prc_hist_tb ORDER BY REG_DT DESC LIMIT 1";
+
+        using (var cmd = new MySqlCommand(query2, connection))
         {
             using (var reader = await cmd.ExecuteReaderAsync()) // 동기적으로 데이터를 읽기
             {
@@ -142,20 +223,21 @@ public class SlecteData : MonoBehaviour
                     {
                         try
                         {
-                            strg_fns_in_dic["PRD_SRL_NO"] = reader.GetString("PRD_SRL_NO");
-                            strg_fns_in_dic["PRD_PLN_NO"] = reader.GetString("PRD_PLN_NO");
-                            strg_fns_in_dic["CMP_CD"] = reader.GetString("CMP_CD");
-                            strg_fns_in_dic["PRD_CD"] = reader.GetString("PRD_CD");
-                            strg_fns_in_dic["CMP_LINE_ID"] = reader.GetString("CMP_LINE_ID");
-                            strg_fns_in_dic["CMP_EQ_ID"] = reader.GetString("CMP_EQ_ID");
-                            strg_fns_in_dic["PRD_TYP_NO"] = reader.GetString("PRD_TYP_NO");
-                            strg_fns_in_dic["PRD_LOT"] = reader.GetString("PRD_LOT");
-                            strg_fns_in_dic["RECE_CD"] = reader.GetString("RECE_CD");
-                            strg_fns_in_dic["PRD_WRK_CD"] = reader.GetString("PRD_WRK_CD");
-                            strg_fns_in_dic["PRD_CYC_TM"] = reader.GetString("PRD_CYC_TM");
-                            strg_fns_in_dic["MN_CYC_TM"] = reader.GetString("MN_CYC_TM");
-                            strg_fns_in_dic["RBT_CYC_TM"] = reader.GetString("RBT_CYC_TM");
-                            strg_fns_in_dic["REG_DT"] = reader.GetString("REG_DT");
+                            prc_hist["PRD_SRL_NO"] = reader.GetString("PRD_SRL_NO");
+                            prc_hist["PRD_PLN_NO"] = reader.GetString("PRD_PLN_NO");
+                            prc_hist["CMP_CD"] = reader.GetString("CMP_CD");
+                            prc_hist["PRD_CD"] = reader.GetString("PRD_CD");
+                            prc_hist["CMP_LINE_ID"] = reader.GetString("CMP_LINE_ID");
+                            prc_hist["CMP_EQ_ID"] = reader.GetString("CMP_EQ_ID");
+                            prc_hist["PRD_TYP_NO"] = reader.GetString("PRD_TYP_NO");
+                            prc_hist["PRD_LOT"] = reader.GetString("PRD_LOT");
+                            prc_hist["RECE_CD"] = reader.GetString("RECE_CD");
+                            prc_hist["PRD_WRK_CD"] = reader.GetString("PRD_WRK_CD");
+                            prc_hist["PRD_CYC_TM"] = reader.GetString("PRD_CYC_TM");
+                            prc_hist["MN_CYC_TM"] = reader.GetString("MN_CYC_TM");
+                            prc_hist["RBT_CYC_TM"] = reader.GetString("RBT_CYC_TM");
+                            prc_hist["REG_DT"] = reader.GetString("REG_DT");
+                            
                         }
                         catch (Exception ex)
                         {
@@ -170,6 +252,107 @@ public class SlecteData : MonoBehaviour
             }
         }
     }
+    private async Task Prc_Alr_Tb_Data(MySqlConnection connection)
+    {
+        string query = "SELECT * FROM ulsan_db_v1.prc_alr_tb WHERE REG_DT > @LastFetchTime ORDER BY REG_DT ASC";
+
+        using (var cmd = new MySqlCommand(query, connection))
+        {
+            cmd.Parameters.AddWithValue("@LastFetchTime", alrLastFetchTime.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+
+            using (var reader = await cmd.ExecuteReaderAsync()) // 비동기적으로 데이터를 읽기
+            {
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        try
+                        {
+                            // 새 데이터를 리스트에 추가
+                            var rowData = new Dictionary<string, object>
+                            {
+                                ["PRD_SRL_NO"] = reader.GetString("PRD_SRL_NO"),
+                                ["PRD_PLN_NO"] = reader.GetString("PRD_PLN_NO"),
+                                ["CMP_CD"] = reader.GetString("CMP_CD"),
+                                ["PRD_CD"] = reader.GetString("PRD_CD"),
+                                ["CMP_LINE_ID"] = reader.GetString("CMP_LINE_ID"),
+                                ["CMP_EQ_ID"] = reader.GetString("CMP_EQ_ID"),
+                                ["PRD_TYP_NO"] = reader.GetString("PRD_TYP_NO"),
+                                ["PRD_LOT"] = reader.GetString("PRD_LOT"),
+                                ["RECE_CD"] = reader.GetString("RECE_CD"),
+                                ["ALR_CD"] = reader.GetString("ALR_CD"),
+                                ["ALR_TYP"] = reader.GetString("ALR_TYP"),
+                                ["REG_DT"] = reader.GetString("REG_DT")
+                            };
+
+                            // 딕셔너리에 데이터 추가
+                            prc_alr_tb_list.Add(rowData);
+
+                            // 데이터 로그 출력
+                            Debug.Log("가져온 데이터:");
+                            foreach (var entry in rowData)
+                            {
+                                Debug.Log($"{entry.Key}: {entry.Value}");
+
+                            }
+
+                            // 마지막 REG_DT 갱신
+                            alrLastFetchTime = reader.GetDateTime("REG_DT");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError($"데이터 읽기 오류: {ex.Message}");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("새로운 데이터가 없습니다.");
+                }
+            }
+        }
+
+        string query2 = "SELECT * FROM ulsan_db_v1.prc_alr_tb ORDER BY REG_DT DESC LIMIT 1";
+
+        using (var cmd = new MySqlCommand(query2, connection))
+        {
+            using (var reader = await cmd.ExecuteReaderAsync()) // 동기적으로 데이터를 읽기
+            {
+                if (reader.HasRows)
+                {
+                    // 데이터가 있는 경우에만 처리
+                    while (await reader.ReadAsync())
+                    {
+                        try
+                        {
+                            prc_alr["PRD_SRL_NO"] = reader.GetString("PRD_SRL_NO");
+                            prc_alr["PRD_PLN_NO"] = reader.GetString("PRD_PLN_NO");
+                            prc_alr["CMP_CD"] = reader.GetString("CMP_CD");
+                            prc_alr["PRD_CD"] = reader.GetString("PRD_CD");
+                            prc_alr["CMP_LINE_ID"] = reader.GetString("CMP_LINE_ID");
+                            prc_alr["CMP_EQ_ID"] = reader.GetString("CMP_EQ_ID");
+                            prc_alr["PRD_TYP_NO"] = reader.GetString("PRD_TYP_NO");
+                            prc_alr["PRD_LOT"] = reader.GetString("PRD_LOT");
+                            prc_alr["RECE_CD"] = reader.GetString("RECE_CD");
+                            prc_alr["ALR_CD"] = reader.GetString("ALR_CD");
+                            prc_alr["ALR_TYP"] = reader.GetString("ALR_TYP");
+                            prc_alr["REG_DT"] = reader.GetString("REG_DT");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError($"데이터 읽기 오류: {ex.Message}");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("쿼리 결과가 없습니다.");
+                }
+            }
+        }
+
+    }
+
     private async Task Strg_Fns_In_Data(MySqlConnection connection)
     {
         string query = "SELECT * FROM ulsan_db_v1.strg_fns_in ORDER BY REG_DT DESC LIMIT 1";
@@ -341,18 +524,23 @@ public class SlecteData : MonoBehaviour
     {
         serverstatus = false;
 
-        cancellationTokenSource.Cancel();  // 비동기 작업 취소
-        cancellationTokenSource.Dispose();  // 리소스 해제
-        cancellationTokenSource = new CancellationTokenSource();  // 새로운 토큰 생성
+        if (cancellationTokenSource != null)
+        {
+            cancellationTokenSource.Cancel();  // 현재 작업 취소
+            cancellationTokenSource.Dispose(); // 리소스 해제
+            cancellationTokenSource = null;   // 참조 초기화
+        }
 
         prc_hist_tb.Clear();
+        prc_alr_tb.Clear();
         strg_fns_in_dic.Clear();
         strg_fns_out_dic.Clear();
         strg_raw_in_dic.Clear();
         strg_raw_out_dic.Clear();
 
-        isRunning = false;  // 비동기 작업이 멈췄으므로 isRunning을 false로 설정
+        isRunning = false;  // 작업 중지 상태 설정
     }
+
 
     // 애플리케이션 종료 시 비동기 작업을 취소
     private void OnApplicationQuit()

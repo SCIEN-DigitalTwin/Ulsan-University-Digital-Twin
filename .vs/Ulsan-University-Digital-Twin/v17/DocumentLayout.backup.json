@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\assets\\scripts\\db\\databaseconnectionchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\databaseconnectionchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\assets\\scripts\\db\\slectedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|c:\\users\\scien\\documents\\github\\ulsan-university-digital-twin\\assets\\scripts\\db\\slectedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\slectedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\assets\\scripts\\db\\dbtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\dbtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|c:\\users\\scien\\documents\\github\\ulsan-university-digital-twin\\assets\\scripts\\db\\dropdowncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\dropdowncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|c:\\users\\scien\\documents\\github\\ulsan-university-digital-twin\\assets\\scripts\\db\\db_connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\db_connect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\assets\\scripts\\db\\newbehaviourscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\newbehaviourscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\assets\\scripts\\db\\machinestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6737090C-E37F-3303-708F-505BFB7843C1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\db\\machinestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,60 +25,64 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 261,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SlecteData.cs",
-              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\SlecteData.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\SlecteData.cs",
-              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\SlecteData.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DB\\SlecteData.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAADwv0kAAAAFAAAAAAAAAA==",
+              "Title": "DropDownController.cs",
+              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DropDownController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\DropDownController.cs",
+              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DropDownController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DB\\DropDownController.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAuwN4AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T07:33:49.692Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DB_Connect.cs",
-              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DB_Connect.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\DB_Connect.cs",
-              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DB_Connect.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DB\\DB_Connect.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T07:23:25.267Z",
+              "WhenOpened": "2024-11-28T04:22:27.554Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DBTest.cs",
-              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DBTest.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\DBTest.cs",
-              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DBTest.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DB\\DBTest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAzAAAAAAAAAA==",
+              "Title": "NewBehaviourScript.cs",
+              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\NewBehaviourScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\NewBehaviourScript.cs",
+              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\NewBehaviourScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DB\\NewBehaviourScript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T05:33:35.174Z",
+              "WhenOpened": "2024-11-28T03:17:20.119Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 261,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SlecteData.cs",
+              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\SlecteData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\SlecteData.cs",
+              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\SlecteData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DB\\SlecteData.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAuwLoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T02:20:00.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DatabaseConnectionChecker.cs",
-              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DatabaseConnectionChecker.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\DatabaseConnectionChecker.cs",
-              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\DatabaseConnectionChecker.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DB\\DatabaseConnectionChecker.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAADwvzEAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "MachineStatus.cs",
+              "DocumentMoniker": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\MachineStatus.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DB\\MachineStatus.cs",
+              "ToolTip": "C:\\Users\\SCIEN\\Documents\\GitHub\\Ulsan-University-Digital-Twin\\Assets\\Scripts\\DB\\MachineStatus.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DB\\MachineStatus.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAxwCYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T05:29:41.629Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T03:52:17.208Z"
             }
           ]
         }

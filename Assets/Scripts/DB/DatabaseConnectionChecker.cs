@@ -3,6 +3,9 @@ using UnityEngine;
 using MySql.Data.MySqlClient;
 using TMPro;
 using Lean.Gui;
+using System.Windows;
+
+
 
 public class DatabaseConnectionChecker : MonoBehaviour
 {
@@ -27,6 +30,7 @@ public class DatabaseConnectionChecker : MonoBehaviour
 
     public GameObject statusToggle;
     public SlecteData data;
+    
 
     void Awake()
     {
@@ -79,6 +83,8 @@ public class DatabaseConnectionChecker : MonoBehaviour
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
                     serverstatus = true;
+                    
+                    System.Windows.Forms.MessageBox.Show("데이터베이스에 연결되었습니다.", "데이터 베이스 접속");
                     UpdateToggleStatus();
                     Debug.Log("DBInterface: Successfully connected to the server!");
                 }
@@ -88,12 +94,16 @@ public class DatabaseConnectionChecker : MonoBehaviour
         {
             serverstatus = false;
             UpdateToggleStatus();
+            
+            System.Windows.Forms.MessageBox.Show("데이터베이스에 연결이 취소되었습니다.", "데이터 베이스 접속");
             Debug.LogError("DBInterface: Server status check failed! " + Environment.NewLine + ex.Message);
         }
         catch (Exception ex) // 일반 예외 처리
         {
             serverstatus = false;
             UpdateToggleStatus();
+            
+            System.Windows.Forms.MessageBox.Show("데이터베이스에 연결이 취소되었습니다.", "데이터 베이스 접속");
             Debug.LogError("DBInterface: An error occurred! " + Environment.NewLine + ex.Message);
         }
     }
